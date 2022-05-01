@@ -3,9 +3,9 @@ from flask import Flask, render_template, redirect, url_for, request, session, f
 from datetime import datetime, timedelta
 from flask_sqlalchemy import SQLAlchemy
 
-required_start = "02.05.2022 01:44:00"
+required_start = "02.05.2022 02:46:00"
 req_start_time = datetime.strptime(required_start, '%d.%m.%Y %H:%M:%S').timestamp()
-req_end_time = datetime.strptime(required_start, '%d.%m.%Y %H:%M:%S')+timedelta(minutes=1)
+req_end_time = datetime.strptime(required_start, '%d.%m.%Y %H:%M:%S')+timedelta(minutes=5)
 req_end_time = req_end_time.timestamp()
 
 app = Flask(__name__)

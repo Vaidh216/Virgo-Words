@@ -6,7 +6,7 @@
 <br><br><br>
 <div class="container">
 
-<form id="contactForm" action="#" data-sb-form-api-token="API_TOKEN" method="post">
+<form id="contactForm" action="#" data-sb-form-api-token="API_TOKEN" method="post" autocomplete="off">
 
     <div class="form-floating mb-3">
         <input class="form-control" name="name" type="text" placeholder="Enter your name..." data-sb-validations="required" />
@@ -22,7 +22,7 @@
     </div>
 
     <div class="form-floating mb-3">
-        <input class="form-control" name="phone" type="tel" placeholder="(123) 456-7890" data-sb-validations="required" />
+        <input class="form-control" name="phone" type="number" min="1000000000" maxlength="10" max="9999999999"  placeholder="(123) 456-7890" required>
         <label for="phone">Phone number</label>
         <div class="invalid-feedback" data-sb-feedback="phone:required">A phone number is required.</div>
     </div>

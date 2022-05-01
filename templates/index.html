@@ -6,7 +6,7 @@
 <br><br><br>
     <!-- {{usr}} -->
 
-    <nav class="navbar navbar-expand-sm">
+    <nav class="navbar navbar-expand-sm .font-weight-bolder">
 
         <!-- Links -->
         <ul class="navbar-nav nav-fill w-100">
@@ -22,11 +22,10 @@
         </ul>
       
       </nav>
-
       <nav class="navbar navbar-expand-sm">
-        <ul class="navbar-nav">
-          <li class="nav-item">{{usr.option}}</li>
-          </li>
+        <ul class="navbar-nav nav-fill w-100">
+          <li class="nav-item">{{usr.topic}}</li>
+          <li class="nav-item" id="time">01:00:00</li>
         </ul>
       </nav>
     
@@ -37,11 +36,64 @@
         <label>Start Writing...</label>
         <textarea class="form-control" rows="15" id="comment" name="ans"></textarea>
         <br>
-        <button class="btn btn-primary float-right" type="submit">Submit</button>
+        <button class="btn btn-primary float-right" id="submit" type="submit" name="submit">Submit</button>
       </div>
+
+      <script>
+        // Set the date we're counting down to
+        var countDownDate = new Date("May 5, 2022 12:00:00").getTime();
+        
+        // Update the count down every 1 second
+        var x = setInterval(function() {
+        
+          // Get today's date and time
+          var now = new Date().getTime();
+            
+          // Find the distance between now and the count down date
+          var distance = countDownDate - now;
+            
+          // Time calculations for days, hours, minutes and seconds
+          var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+          var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+          var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+          // Output the result in an element with id="demo"
+          document.getElementById("time").innerHTML = days + "d " + hours + "h "
+          + minutes + "m " + seconds + "s ";
+            
+          // If the count down is over, write some text 
+          if (distance < 0) {
+            clearInterval(x);
+            document.getElementById("time").innerHTML = "EXPIRED";
+          }
+        }, 1000);
+        </script>        
+
+      <script>
+        window.addEventListener("load", function() {
+         // Check time and update the button's state every second.
+         setInterval(updateSubmitButton, 1000);
+       }, false);
+       
+       function updateSubmitButton() {
+       var currentTime = new Date();
+       var hours = currentTime.getHours();
+       var minutes = currentTime.getMinutes();
+       
+       // at 11.30 am and at 8.30 pm
+       
+       if (hours === 2 && minutes === 12){
+       document.getElementById('submit').click();
+       } else {
+       console.log( "Wait for specified time" );
+       }
+       }
+       </script>
+
       </form>
       <br>
-      
     </div>
+    
 
 {% endblock %}
