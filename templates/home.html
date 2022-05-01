@@ -45,7 +45,8 @@
     <br>
     {% with messages = get_flashed_messages() %}
         {% if messages %}
-            <p>{{messages}}</p>
+        <p>This mobile number is already registered with Username {{messages.name}}</p>
+        <a href="wait/{messages.phone}">Click here To Login</a>
         {% endif %}
     {% endwith %}
     <br>
