@@ -3,5 +3,42 @@
 {% block title %}Writing{% endblock %}
 
 {% block content %}
+<br><br><br>
+    <!-- {{usr}} -->
+
+    <nav class="navbar navbar-expand-sm">
+
+        <!-- Links -->
+        <ul class="navbar-nav nav-fill w-100">
+          <li class="nav-item">{{usr["name"]}}</li>
+
+          <li class="nav-item">{{usr["email"]}}</li>
+          
+          <li class="nav-item">{{usr["phone"]}}</li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">logout</a>
+          </li>
+        </ul>
+      
+      </nav>
+
+      <nav class="navbar navbar-expand-sm bg-warning justify-content-center">
+        <ul class="navbar-nav">
+          <li class="nav-item">{{usr["option"]}}</li>
+          </li>
+        </ul>
+      </nav>
+    
+    <br>
+    <div class="container">
+      <div class="form-group">
+        <label>Start Writing...</label>
+        <textarea class="form-control" rows="15" id="comment"></textarea>
+      </div>
+      <br>
+      <button type="button" class="btn btn-success">Success</button>
+      <br>
+    </div>
 
 {% endblock %}
