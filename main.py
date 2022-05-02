@@ -3,7 +3,7 @@ from flask import Flask, render_template, redirect, url_for, request, session, f
 from datetime import datetime, timedelta
 from flask_sqlalchemy import SQLAlchemy
 
-required_start = "02.05.2022 02:46:00"
+required_start = "02.05.2022 10:54:00"
 req_start_time = datetime.strptime(required_start, '%d.%m.%Y %H:%M:%S').timestamp()
 req_end_time = datetime.strptime(required_start, '%d.%m.%Y %H:%M:%S')+timedelta(minutes=5)
 req_end_time = req_end_time.timestamp()
@@ -33,6 +33,7 @@ while True:
     found_user = users.query.filter_by(phone="9559978193").first()
     if found_user:
         print(found_user.resp)
+        print(found_user.phone)
         db.session.delete(found_user)
         db.session.commit()
     else:
@@ -113,7 +114,7 @@ def write(num):
 
 @app.route('/terms/')
 def Terms_and_conditions():
-    return "Terms and Conditions"
+    return render_template("terms.html")
 
 
 # @app.route('/logout')
