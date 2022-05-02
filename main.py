@@ -1,25 +1,29 @@
-from enum import unique
 from flask import Flask, render_template, redirect, url_for, request, session, flash
 from datetime import datetime, timedelta
 from flask_sqlalchemy import SQLAlchemy
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
 
-required_start = "02.05.2022 10:54:00"
+required_start = "02.05.2022 12:29:00"
 req_start_time = datetime.strptime(required_start, '%d.%m.%Y %H:%M:%S').timestamp()
 req_end_time = datetime.strptime(required_start, '%d.%m.%Y %H:%M:%S')+timedelta(minutes=5)
 req_end_time = req_end_time.timestamp()
 
 app = Flask(__name__)
 app.secret_key = "sprite"
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.sqlite3'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
+app.config['SECRET_KEY'] = "sprite"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
+admin = Admin(app)
+
 class users(db.Model):
-    # id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100),nullable=False)
     email = db.Column(db.String(100),nullable=False)
-    phone = db.Column(db.String(10), unique=True,nullable=False, primary_key=True)
+    phone = db.Column(db.String(10), unique=True,nullable=False)
     topic = db.Column(db.String(100), nullable=False)
     resp = db.Column(db.String(1000))
 
@@ -29,23 +33,25 @@ class users(db.Model):
         self.phone = phone
         self.topic = topic
 
-while True:
-    found_user = users.query.filter_by(phone="9559978193").first()
-    if found_user:
-        print(found_user.resp)
-        print(found_user.phone)
-        db.session.delete(found_user)
-        db.session.commit()
-    else:
-        break
+admin.add_view(ModelView(users, db.session))
+
+# while True:
+#     found_user = users.query.filter_by(phone="9559978193").first()
+#     if found_user:
+#         print(found_user.resp)
+#         print(found_user.phone)
+#         db.session.delete(found_user)
+#         db.session.commit()
+#     else:
+#         break
         
-while True:
-    found_user = users.query.filter_by(phone="09559978193").first()
-    if found_user:
-        db.session.delete(found_user)
-        db.session.commit()
-    else:
-        break
+# while True:
+#     found_user = users.query.filter_by(phone="09559978193").first()
+#     if found_user:
+#         db.session.delete(found_user)
+#         db.session.commit()
+#     else:
+#         break
 
 
 @app.route("/", methods=["POST","GET"])
