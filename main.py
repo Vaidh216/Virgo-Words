@@ -68,10 +68,18 @@ admin.add_view(SecureModelView(users, db.session))
 #     else:
 #         break
 
-@app.route("/login/")
+@app.route("/login/", methods=["POST","GET"])
 def login():
-    session['logged_in'] = True
-    return redirect("/admin/")
+    if request.method == "POST":
+        if request.form.get("username")=="VIRGOWORDS" and request.form.get("password")=="sprite":
+            session['logged_in'] = True
+            return redirect("/admin/")
+        else:
+            flash("Wrong Credentials") 
+            return render_template('login.html')
+    else:
+        return render_template('login.html')
+
 
 @app.route('/logout/')
 def logout():
