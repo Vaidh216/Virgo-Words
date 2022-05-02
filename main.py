@@ -6,9 +6,13 @@ from flask_admin.contrib.sqla import ModelView
 from sqlalchemy import false
 from flask_login import UserMixin, LoginManager
 
-required_start = "02.05.2022 12:29:00"
+required_start = "02.05.2022 23:30:00"
+duration_in_minutes = 30
+hour_for_auto_submit = '22'
+min_for_auto_submit = '57'
+
 req_start_time = datetime.strptime(required_start, '%d.%m.%Y %H:%M:%S').timestamp()
-req_end_time = datetime.strptime(required_start, '%d.%m.%Y %H:%M:%S')+timedelta(minutes=5)
+req_end_time = datetime.strptime(required_start, '%d.%m.%Y %H:%M:%S')+timedelta(minutes=(duration_in_minutes+2))
 req_end_time = req_end_time.timestamp()
 
 app = Flask(__name__)
@@ -31,7 +35,7 @@ class users(db.Model):
     email = db.Column(db.String(100),nullable=False)
     phone = db.Column(db.String(10), unique=True,nullable=False)
     topic = db.Column(db.String(100), nullable=False)
-    resp = db.Column(db.String(1000))
+    resp = db.Column(db.String(5000))
 
     def __init__(self,name,email,phone,topic):
         self.name = name
@@ -146,7 +150,8 @@ def write(num):
         cur_time = datetime.now().timestamp()
 
         if cur_time >= req_start_time:
-            return render_template("index.html", usr = found_user)
+            data = {'hr':hour_for_auto_submit, 'mn':min_for_auto_submit}
+            return render_template("index.html",usr=found_user,data = data)
         else:
             return redirect(url_for("wait", num=num))
     else:
