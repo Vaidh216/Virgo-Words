@@ -3,6 +3,8 @@ from datetime import datetime, timedelta
 from flask_sqlalchemy import SQLAlchemy
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
+from sqlalchemy import false
+from flask_login import UserMixin, LoginManager
 
 required_start = "02.05.2022 12:29:00"
 req_start_time = datetime.strptime(required_start, '%d.%m.%Y %H:%M:%S').timestamp()
@@ -17,7 +19,11 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
-admin = Admin(app)
+# login = LoginManager(app)
+
+# @login.user_loader
+# def load_user(user_id):
+#     return 
 
 class users(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -33,6 +39,11 @@ class users(db.Model):
         self.phone = phone
         self.topic = topic
 
+# class MyModelView(ModelView):
+#     def is_accessible(self):
+#         return False 
+
+admin = Admin(app)
 admin.add_view(ModelView(users, db.session))
 
 # while True:
@@ -67,7 +78,7 @@ def home():
 
         found_user = users.query.filter_by(phone=user["phone"]).first()
         if found_user:
-            flash(f"{found_user}")
+            flash(f"{user['phone']}") 
             return redirect(url_for("home"))
         else:
             usr = users(user["name"],user["email"],user["phone"],user["option"])
@@ -77,7 +88,14 @@ def home():
         # session["cur"] = user
         # return render_template("index.html", user = user)
 
+        print(user["phone"])
+        print(user["phone"])
+        print("break")
+        print("break")
+        print("break")
+
         return redirect(url_for("wait", num=user["phone"]))
+
 
     else:
         # if "cur" in session:
@@ -86,7 +104,7 @@ def home():
 
 @app.route('/wait/<num>')
 def wait(num):
-    return render_template("wait.html", number=num)
+    return render_template("wait.html", num=num)
 
 @app.route('/writing/<num>', methods=["POST","GET"])
 def write(num):
@@ -110,6 +128,9 @@ def write(num):
         else:
             return redirect(url_for("wait", num=num))
     else:
+        print(num)
+        print(num)
+        print(num)
         return render_template("warn1.html")
     
     # if "cur" in session:
