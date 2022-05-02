@@ -3,3 +3,4 @@ MarkupSafe~=2.0.1
 Requests
 flask-sqlalchemy
 flask-admin
+flask_login

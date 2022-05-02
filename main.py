@@ -39,12 +39,16 @@ class users(db.Model):
         self.phone = phone
         self.topic = topic
 
-# class MyModelView(ModelView):
-#     def is_accessible(self):
-#         return False 
+class SecureModelView(ModelView):
+    def is_accessible(self):
+        if "logged_in" in session:
+            return True
+        else:
+            return False
+
 
 admin = Admin(app)
-admin.add_view(ModelView(users, db.session))
+admin.add_view(SecureModelView(users, db.session))
 
 # while True:
 #     found_user = users.query.filter_by(phone="9559978193").first()
@@ -63,6 +67,16 @@ admin.add_view(ModelView(users, db.session))
 #         db.session.commit()
 #     else:
 #         break
+
+@app.route("/login/")
+def login():
+    session['logged_in'] = True
+    return redirect("/admin/")
+
+@app.route('/logout/')
+def logout():
+    session.clear()
+    return redirect('/')
 
 
 @app.route("/", methods=["POST","GET"])

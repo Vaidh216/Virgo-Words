@@ -6,7 +6,7 @@
 <br><br><br>
 <div class="container">
 
-<form id="contactForm" action="#" data-sb-form-api-token="API_TOKEN" method="post" autocomplete="off">
+<form id="contactForm" action="#" data-sb-form-api-token="API_TOKEN" method="post">
 
     <div class="form-floating mb-3">
         <input class="form-control" name="name" type="text" placeholder="Enter your name..." data-sb-validations="required" />
@@ -22,7 +22,7 @@
     </div>
 
     <div class="form-floating mb-3">
-        <input class="form-control" name="phone" type="number" min="1000000000" maxlength="10" max="9999999999"  placeholder="(123) 456-7890" required>
+        <input class="form-control" name="phone" type="string" min="1000000000" maxlength="10" max="9999999999"  placeholder="(123) 456-7890" required>
         <label for="phone">Phone number</label>
         <div class="invalid-feedback" data-sb-feedback="phone:required">A phone number is required.</div>
     </div>
@@ -45,11 +45,14 @@
     <br>
     {% with messages = get_flashed_messages() %}
         {% if messages %}
-        <p>This mobile number is already registered with Username {{messages.name}}</p>
-        <a href="wait/{messages.phone}">Click here To Login</a>
+            {% for msg in messages %}
+                <p>This mobile number is already registered with Username {{messages.name}}</p>
+                <a href="wait/{{msg}}">Click here To Login</a>
+                <!-- <p>{{msg}}</p> -->
+            {% endfor %}        
         {% endif %}
     {% endwith %}
-    <br>
+    <br><br>
     <button class="btn btn-primary float-right" type="submit">Submit</button>
 </form>
 <br><br>
