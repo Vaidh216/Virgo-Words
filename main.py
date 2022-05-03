@@ -6,7 +6,6 @@ from flask_admin.contrib.sqla import ModelView
 from sqlalchemy import false
 from flask_login import UserMixin, LoginManager
 
-
 required_start = "02.05.2022 23:30:00"
 duration_in_minutes = 30
 hour_for_auto_submit = '22'
