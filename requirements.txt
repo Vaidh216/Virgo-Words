@@ -1,5 +1,5 @@
 Flask~=1.1.2
-MarkupSafe~=2.0.1
+MarkupSafe
 Requests
 flask-sqlalchemy
 flask-admin
