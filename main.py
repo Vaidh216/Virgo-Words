@@ -10,8 +10,8 @@ import pytz
 UTC = pytz.utc
 IST = pytz.timezone('Asia/Kolkata')
 
-required_start = "04.05.2022 19:00:00"
-duration_in_minutes = 20
+required_start = "04.05.2022 23:20:00"
+duration_in_minutes = 5
 hour_for_auto_submit = '22'
 min_for_auto_submit = '57'
 
