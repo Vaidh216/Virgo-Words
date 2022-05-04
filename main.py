@@ -7,8 +7,8 @@ from sqlalchemy import false
 from flask_login import UserMixin, LoginManager
 
 
-required_start = "02.05.2022 23:30:00"
-duration_in_minutes = 30
+required_start = "03.05.2022 12:34:00"
+duration_in_minutes = 5
 hour_for_auto_submit = '22'
 min_for_auto_submit = '57'
 
@@ -78,7 +78,7 @@ def login():
     if request.method == "POST":
         if request.form.get("username")=="VIRGOWORDS" and request.form.get("password")=="sprite":
             session['logged_in'] = True
-            return redirect("/admin/")
+            return redirect("/ekarikthin-article/admin/")
         else:
             flash("Wrong Credentials") 
             return render_template('login.html')
@@ -167,7 +167,7 @@ def write(num):
     # else:
     #     return redirect(url_for("home"))
 
-@app.route('/terms/')
+@app.route('/ekarikthin-article/terms/')
 def Terms_and_conditions():
     return render_template("terms.html")
 
