@@ -127,7 +127,9 @@ def home():
     else:
         # if "cur" in session:
         #     return redirect(url_for("write"))
-        return render_template("home.html") 
+        now = datetime.now()
+        current_time = now.strftime("%H:%M:%S")
+        return render_template("home.html", chan = current_time) 
 
 @app.route('/wait/<num>')
 def wait(num):
