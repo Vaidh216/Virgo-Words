@@ -79,12 +79,13 @@
        
        function updateSubmitButton() {
        var currentTime = new Date();
+       currentTime.toLocaleString('en-US', { timeZone: 'Asia/Kolkata' })
        var hours = currentTime.getHours();
        var minutes = currentTime.getMinutes();
        
        // at 11.30 am and at 8.30 pm
 
-       if (hours === 11 && minutes === 55){
+       if (hours === 19 && minutes === 10){
        document.getElementById('submit').click();
        } else {
        console.log( "Wait for specified time" );

@@ -5,10 +5,13 @@ from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 from sqlalchemy import false
 from flask_login import UserMixin, LoginManager
+import pytz
 
+UTC = pytz.utc
+IST = pytz.timezone('Asia/Kolkata')
 
-required_start = "03.05.2022 12:34:00"
-duration_in_minutes = 5
+required_start = "04.05.2022 19:00:00"
+duration_in_minutes = 20
 hour_for_auto_submit = '22'
 min_for_auto_submit = '57'
 
@@ -73,7 +76,7 @@ admin.add_view(SecureModelView(users, db.session))
 #     else:
 #         break
 
-@app.route("/login/", methods=["POST","GET"])
+@app.route("/ekarikthin-article/login/", methods=["POST","GET"])
 def login():
     if request.method == "POST":
         if request.form.get("username")=="VIRGOWORDS" and request.form.get("password")=="sprite":
@@ -86,13 +89,13 @@ def login():
         return render_template('login.html')
 
 
-@app.route('/logout/')
+@app.route('/ekarikthin-article/logout/')
 def logout():
     session.clear()
     return redirect('/')
 
 
-@app.route("/", methods=["POST","GET"])
+@app.route("/ekarikthin-article/", methods=["POST","GET"])
 def home():
     if request.method == "POST":
         user = dict()
@@ -115,32 +118,24 @@ def home():
         # session["cur"] = user
         # return render_template("index.html", user = user)
 
-        print(user["phone"])
-        print(user["phone"])
-        print("break")
-        print("break")
-        print("break")
-
         return redirect(url_for("wait", num=user["phone"]))
 
 
     else:
         # if "cur" in session:
         #     return redirect(url_for("write"))
-        now = datetime.now()
-        current_time = now.strftime("%H:%M:%S")
-        return render_template("home.html", chan = current_time) 
+        return render_template("home.html") 
 
-@app.route('/wait/<num>')
+@app.route('/ekarikthin-article/wait/<num>')
 def wait(num):
     return render_template("wait.html", num=num)
 
-@app.route('/writing/<num>', methods=["POST","GET"])
+@app.route('/ekarikthin-article/writing/<num>', methods=["POST","GET"])
 def write(num):
 
     found_user = users.query.filter_by(phone=num).first()
     if request.method == "POST":
-        cur_time = datetime.now().timestamp()
+        cur_time = datetime.now(IST).timestamp()
         if cur_time >= req_end_time:
             return render_template("timeout.html")
         user = request.form["ans"]
@@ -150,7 +145,7 @@ def write(num):
 
     
     if found_user:
-        cur_time = datetime.now().timestamp()
+        cur_time = datetime.now(IST).timestamp()
 
         if cur_time >= req_start_time:
             data = {'hr':hour_for_auto_submit, 'mn':min_for_auto_submit}
@@ -158,9 +153,6 @@ def write(num):
         else:
             return redirect(url_for("wait", num=num))
     else:
-        print(num)
-        print(num)
-        print(num)
         return render_template("warn1.html")
     
     # if "cur" in session:
@@ -180,7 +172,7 @@ def Terms_and_conditions():
 #     return redirect(url_for("home"))
 
 
-@app.route('/<other>')
+@app.route('/ekarikthin-article/<other>')
 def others(other):
     # if "cur" in session:
     #     return redirect(url_for("write"))
