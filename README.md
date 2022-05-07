@@ -6,6 +6,9 @@ Here the writing page should not be activated before the required time of 10:00 
 And All the articles after 11:02AM Will not be accepted by the server.
 All the response will be stored in the individual canditates are stored in server and there is only one entry allowed per phone number.
 
+##  Currently hosted
+Currently hosted at [https://desertfoxsafari.com/ekarikthin-article](https://desertfoxsafari.com/ekarikthin-article)
+
 ## Installation
 
 Create first the Virtual environment or just the default one by name venu which will be activated by following command.
@@ -19,25 +22,33 @@ Then install all the required packages given on requirements.txt
 pip install -r requirements.txt
 ```
 
-## Usage
+To run the program type
+
+```bash
+python main.py
+```
+Boom! the webite is good to go.
+
+
+##  Models and Databases
+Here The sqlite3 database is used to store the data of various users and model is as follows
 
 ```python
-import foobar
+class users(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100),nullable=False)
+    email = db.Column(db.String(100),nullable=False)
+    phone = db.Column(db.String(10), unique=True,nullable=False)
+    topic = db.Column(db.String(100), nullable=False)
+    resp = db.Column(db.String(5000))
 
-# returns 'words'
-foobar.pluralize('word')
-
-# returns 'geese'
-foobar.pluralize('goose')
-
-# returns 'phenomenon'
-foobar.singularize('phenomena')
+    def __init__(self,name,email,phone,topic):
+        self.name = name
+        self.email = email
+        self.phone = phone
+        self.topic = topic
 ```
 
-## Contributing
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+##  Results
+The contest is finally over and there were neraby 25-30 participants and the experience with the platform was good.
 
-Please make sure to update tests as appropriate.
-
-## License
-[MIT](https://choosealicense.com/licenses/mit/)
