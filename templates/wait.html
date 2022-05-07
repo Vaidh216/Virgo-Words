@@ -4,18 +4,20 @@
 
 {% block content %}
     <br><br><br><br>
-
+	{{curr}}
+	<br><br>
+	{{req}}
     <div class="container">
         <h2>
             <ul class="list-group" style="text-align:center;">
-                <li class="list-group-item active">Your Exam will Start On 5th may 11 AM</li>
+                <li class="list-group-item active">Your Exam will Start On 5th may 10 AM</li>
                 <li class="list-group-item">Your Link for the test is <a href="/ekarikthin-article/writing/{{num}}">Click Here</a></li>
                 <li class="list-group-item list-group-item-warning"  id="time">05:00:00</li>
             </ul>
         </h2>
         <script>
             // Set the date we're counting down to
-            var countDownDate = new Date("May 5, 2022 11:00:00").getTime();
+            var countDownDate = new Date("May 5, 2022 10:00:00").getTime();
             
             // Update the count down every 1 second
             var x = setInterval(function() {

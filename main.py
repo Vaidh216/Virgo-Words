@@ -10,8 +10,10 @@ import pytz
 UTC = pytz.utc
 IST = pytz.timezone('Asia/Kolkata')
 
-required_start = "04.05.2022 23:30:00"
-duration_in_minutes = 5
+change_hr=11
+change_mn=27
+required_start = "04.05.2022 21:30:00"
+duration_in_minutes = 60
 hour_for_auto_submit = '22'
 min_for_auto_submit = '57'
 
@@ -76,7 +78,7 @@ admin.add_view(SecureModelView(users, db.session))
 #     else:
 #         break
 
-@app.route("/ekarikthin-article/login/", methods=["POST","GET"])
+@app.route("/login/", methods=["POST","GET"])
 def login():
     if request.method == "POST":
         if request.form.get("username")=="VIRGOWORDS" and request.form.get("password")=="sprite":
@@ -89,13 +91,13 @@ def login():
         return render_template('login.html')
 
 
-@app.route('/ekarikthin-article/logout/')
+@app.route('/logout/')
 def logout():
     session.clear()
     return redirect('/')
 
 
-@app.route("/ekarikthin-article/", methods=["POST","GET"])
+@app.route("/", methods=["POST","GET"])
 def home():
     if request.method == "POST":
         user = dict()
@@ -126,16 +128,22 @@ def home():
         #     return redirect(url_for("write"))
         return render_template("home.html") 
 
-@app.route('/ekarikthin-article/wait/<num>')
+@app.route('/wait/<num>')
 def wait(num):
-    return render_template("wait.html", num=num)
 
-@app.route('/ekarikthin-article/writing/<num>', methods=["POST","GET"])
+	now = datetime.now()
+
+	current_time = now.strftime("%H:%M:%S")
+	dt_obj = datetime.fromtimestamp(req_start_time)
+#	req = req_start_time.strftime("%H:%M:%S")
+	return render_template("wait.html", num=num)
+
+@app.route('/writing/<num>', methods=["POST","GET"])
 def write(num):
 
     found_user = users.query.filter_by(phone=num).first()
     if request.method == "POST":
-        cur_time = datetime.now(IST).timestamp()
+        cur_time = datetime.now().timestamp()
         if cur_time >= req_end_time:
             return render_template("timeout.html")
         user = request.form["ans"]
@@ -145,8 +153,7 @@ def write(num):
 
     
     if found_user:
-        cur_time = datetime.now(IST).timestamp()
-
+        cur_time = datetime.now().timestamp()
         if cur_time >= req_start_time:
             data = {'hr':hour_for_auto_submit, 'mn':min_for_auto_submit}
             return render_template("index.html",usr=found_user,data = data)
@@ -161,7 +168,7 @@ def write(num):
     # else:
     #     return redirect(url_for("home"))
 
-@app.route('/ekarikthin-article/terms/')
+@app.route('/terms/')
 def Terms_and_conditions():
     return render_template("terms.html")
 
@@ -172,12 +179,12 @@ def Terms_and_conditions():
 #     return redirect(url_for("home"))
 
 
-@app.route('/ekarikthin-article/<other>')
-def others(other):
-    # if "cur" in session:
-    #     return redirect(url_for("write"))
-    # else:
-    return redirect(url_for("home"))
+#@app.route('/ekarikthin-article/<other>')
+#def others(other):
+#    # if "cur" in session:
+#    #     return redirect(url_for("write"))
+#    # else:
+#    return redirect(url_for("home"))
 
 if __name__ == "__main__":
     app.run(debug=True)
