@@ -50,5 +50,5 @@ class users(db.Model):
 ```
 
 ##  Results
-The contest is finally over and there were neraby 25-30 participants and the experience with the platform was good.
+The contest is finally over and there were neraby 25-30 participants and the experience with the platform was fantastic.
 
