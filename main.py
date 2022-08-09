@@ -83,7 +83,7 @@ def login():
     if request.method == "POST":
         if request.form.get("username")=="VIRGOWORDS" and request.form.get("password")=="sprite":
             session['logged_in'] = True
-            return redirect("/ekarikthin-article/admin/")
+            return redirect("/admin/")
         else:
             flash("Wrong Credentials") 
             return render_template('login.html')
