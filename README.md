@@ -7,7 +7,7 @@ And All the articles after 11:02AM Will not be accepted by the server.
 All the response will be stored in the individual canditates are stored in server and there is only one entry allowed per phone number.
 
 ##  Currently hosted
-Currently hosted at [https://desertfoxsafari.com/ekarikthin-article](https://desertfoxsafari.com/ekarikthin-article)
+Currently hosted at [https://virgo-words.herokuapp.com/](https://virgo-words.herokuapp.com/)
 
 ## Installation
 
